@@ -3,7 +3,14 @@ defmodule AnonMessagesWeb.UserMessagesLive do
 
   def render(assigns) do
     ~H"""
-    <div phx-update="ignore" phx-hook="UserMessages" id="user-messages"></div>
+    <div
+      phx-update="ignore"
+      phx-hook="UserMessages"
+      id="user-messages"
+      class="h-full"
+      data-userid={assigns.current_user.id}
+    >
+    </div>
     """
   end
 

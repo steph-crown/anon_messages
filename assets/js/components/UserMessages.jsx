@@ -1,30 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
-const dummyMessages = [
-  {
-    content:
-      "Sometimes it's easier to express yourself when you don't have to worry about who's saying it. Anyone else feel the same way?",
-    createdAt: "2024-03-01T14:00:00Z",
-  },
-  {
-    content: "I've been thinking about you. Hope you're doing well.",
-    createdAt: "2024-02-29T14:00:00Z",
-  },
-];
+const UserMessages = ({ userId }) => {
+  const [messages, setMessages] = useState([]);
+  const shareableLink = `http://localhost:3000/send/${userId}`;
 
-const UserMessages = () => {
-  const [messages, setMessages] = [];
   return (
-    <div className="bg-[]">
-      <h1>Messages for you</h1>
-      <ul>
-        {dummyMessages.map((message, index) => (
-          <li key={index}>
-            <p>{message.content}</p>
-            <small>{formatTime(message.createdAt)}</small>
-          </li>
-        ))}
-      </ul>
+    <div className="border-solid border border-[#E8E8E8] px-8 py-8 rounded-lg h-full flex flex-col justify-between">
+      <div className="h-[calc(100%_-_120px)]">
+        <h1 className="text-black text-2xl font-semibold text-center mb-4">
+          Messages for you
+        </h1>
+
+        <ul className="flex flex-col gap-y-4  overflow-y-auto h-[calc(100%_-_72px)]">
+          {messages.map((message, index) => (
+            <li
+              key={message.content}
+              className="bg-[#FAFAFA] border-[#E8E8E8] border border-solid px-6 py-6 rounded-lg"
+            >
+              <p className="text-base text-black">{message.content}</p>
+              <small className="block text-right mt-6">
+                {" "}
+                - Anonymous [{formatTime(message.createdAt)}]
+              </small>
+            </li>
+          ))}
+
+          {!messages.length && (
+            <li className="h-full font-medium flex items-center justify-center">
+              You don't have any messages yet
+            </li>
+          )}
+        </ul>
+      </div>
+
+      <div>
+        <p className="text-base">
+          Share this link to let people send you candid thoughts, questions, or
+          suggestions. You won't know who it's from!
+        </p>
+        <input
+          type="text"
+          className="border-solid border border-[#E8E8E8] px-4 py-4 rounded-lg w-full mt-2 text-center font-medium"
+          value={shareableLink}
+          readOnly
+        />
+      </div>
     </div>
   );
 };
@@ -35,7 +55,10 @@ const formatTime = (dateTimeString) => {
   if (!dateTimeString) return "";
 
   const dateTime = new Date(dateTimeString);
-  return dateTime.toLocaleTimeString("en-US", {
+  return dateTime.toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
   });

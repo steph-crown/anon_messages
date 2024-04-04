@@ -29,7 +29,10 @@ import topbar from "../vendor/topbar";
 const Hooks = {
   UserMessages: {
     mounted() {
-      this.unmount = mount(this.el.id, <UserMessages />);
+      this.unmount = mount(
+        this.el.id,
+        <UserMessages userId={this.el?.dataset?.userid} />
+      );
     },
 
     destroyed() {
