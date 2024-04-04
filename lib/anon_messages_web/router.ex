@@ -76,9 +76,9 @@ defmodule AnonMessagesWeb.Router do
   scope "/", AnonMessagesWeb do
     pipe_through [:browser]
 
-    live_session :ensure_user_exists,
-      on_mount: [{AnonMessagesWeb.UserAuth, :ensure_user_exists}] do
-      live "/send_messages/:user_id", SendMessagesLive, :new
+    live_session :ensure_recipient_exists,
+      on_mount: [{AnonMessagesWeb.UserAuth, :ensure_recipient_exists}] do
+      live "/send_messages/:recipient_id", SendMessagesLive, :new
     end
   end
 

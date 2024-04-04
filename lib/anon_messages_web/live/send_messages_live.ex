@@ -7,8 +7,8 @@ defmodule AnonMessagesWeb.SendMessagesLive do
       id="send-messages"
       phx-hook="SendMessages"
       phx-update="ignore"
-      data-useremail={assigns.user_by_id.email}
-      data-userid={assigns.user_by_id.id}
+      data-useremail={assigns.recipient.email}
+      data-userid={assigns.recipient.id}
     >
     </div>
     """

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SendMessages = ({ userEmail, userId }) => {
+const SendMessages = ({ recipientEmail, recipientId }) => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
@@ -18,8 +18,8 @@ const SendMessages = ({ userEmail, userId }) => {
       </h1>
 
       <p className="text-base mt-3 mb-14">
-        Send {userEmail} a quick, completely anonymous message. It could be a
-        compliment, a question, or even a friendly dare.
+        Send {recipientEmail} a quick, completely anonymous message. It could be
+        a compliment, a question, or even a friendly dare.
       </p>
 
       <textarea className="block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6 min-h-[6rem] "></textarea>

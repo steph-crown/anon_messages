@@ -172,11 +172,11 @@ defmodule AnonMessagesWeb.UserAuth do
     end
   end
 
-  def on_mount(:ensure_user_exists, params, _session, socket) do
-    user_id = Map.get(params, "user_id")
-    socket = mount_user_by_id(socket, user_id)
+  def on_mount(:ensure_recipient_exists, params, _session, socket) do
+    recipient_id = Map.get(params, "recipient_id")
+    socket = mount_recipient(socket, recipient_id)
 
-    if socket.assigns.user_by_id do
+    if socket.assigns.recipient do
       {:cont, socket}
     else
       socket =
@@ -191,16 +191,16 @@ defmodule AnonMessagesWeb.UserAuth do
     end
   end
 
-  defp mount_user_by_id(socket, user_id) do
+  defp mount_recipient(socket, recipient_id) do
     try do
-      user = Accounts.get_user!(user_id)
+      recipient = Accounts.get_user!(recipient_id)
 
-      Phoenix.Component.assign_new(socket, :user_by_id, fn ->
-        user
+      Phoenix.Component.assign_new(socket, :recipient, fn ->
+        recipient
       end)
     rescue
       _ ->
-        Phoenix.Component.assign_new(socket, :user_by_id, fn ->
+        Phoenix.Component.assign_new(socket, :recipient, fn ->
           nil
         end)
     end
