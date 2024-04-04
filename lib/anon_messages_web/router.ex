@@ -76,6 +76,15 @@ defmodule AnonMessagesWeb.Router do
   scope "/", AnonMessagesWeb do
     pipe_through [:browser]
 
+    live_session :ensure_user_exists,
+      on_mount: [{AnonMessagesWeb.UserAuth, :ensure_user_exists}] do
+      live "/send_messages/:user_id", SendMessagesLive, :new
+    end
+  end
+
+  scope "/", AnonMessagesWeb do
+    pipe_through [:browser]
+
     delete "/users/log_out", UserSessionController, :delete
 
     live_session :current_user,

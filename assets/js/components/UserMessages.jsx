@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const UserMessages = ({ userId }) => {
   const [messages, setMessages] = useState([]);
-  const shareableLink = `http://localhost:3000/send/${userId}`;
+  const shareableLink = `http://localhost:3000/send_messages/${userId}`;
 
   return (
     <div className="border-solid border border-[#E8E8E8] px-8 py-8 rounded-lg h-full flex flex-col justify-between">

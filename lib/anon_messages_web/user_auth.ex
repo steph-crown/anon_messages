@@ -172,6 +172,40 @@ defmodule AnonMessagesWeb.UserAuth do
     end
   end
 
+  def on_mount(:ensure_user_exists, params, _session, socket) do
+    user_id = Map.get(params, "user_id")
+    socket = mount_user_by_id(socket, user_id)
+
+    if socket.assigns.user_by_id do
+      {:cont, socket}
+    else
+      socket =
+        socket
+        |> Phoenix.LiveView.put_flash(
+          :error,
+          "Oops!, looks like the link is broken. Please check the link and try again."
+        )
+        |> Phoenix.LiveView.redirect(to: ~p"/")
+
+      {:halt, socket}
+    end
+  end
+
+  defp mount_user_by_id(socket, user_id) do
+    try do
+      user = Accounts.get_user!(user_id)
+
+      Phoenix.Component.assign_new(socket, :user_by_id, fn ->
+        user
+      end)
+    rescue
+      _ ->
+        Phoenix.Component.assign_new(socket, :user_by_id, fn ->
+          nil
+        end)
+    end
+  end
+
   defp mount_current_user(socket, session) do
     Phoenix.Component.assign_new(socket, :current_user, fn ->
       if user_token = session["user_token"] do

@@ -20,6 +20,7 @@ import "phoenix_html";
 
 import { LiveSocket } from "phoenix_live_view";
 import React from "react";
+import SendMessages from "./components/SendMessages";
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
 import UserMessages from "./components/UserMessages";
@@ -32,6 +33,26 @@ const Hooks = {
       this.unmount = mount(
         this.el.id,
         <UserMessages userId={this.el?.dataset?.userid} />
+      );
+    },
+
+    destroyed() {
+      if (!this.unmount) {
+        console.error(`${this.el.id} component is not rendered`);
+      } else {
+        this.unmount();
+      }
+    },
+  },
+
+  SendMessages: {
+    mounted() {
+      this.unmount = mount(
+        this.el.id,
+        <SendMessages
+          userEmail={this.el?.dataset?.useremail}
+          userId={this.el?.dataset?.userid}
+        />
       );
     },
 
