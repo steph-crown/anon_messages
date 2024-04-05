@@ -50,8 +50,14 @@ const Hooks = {
       this.unmount = mount(
         this.el.id,
         <SendMessages
-          recipientEmail={this.el?.dataset?.recipientEmail}
-          recipientId={this.el?.dataset?.recipientId}
+          recipientEmail={this.el?.dataset?.recipientemail}
+          recipientId={this.el?.dataset?.recipientid}
+          handleSendMessage={(content, recipientId) => {
+            this.pushEvent("send_message", {
+              content,
+              recipient_id: Number(recipientId),
+            });
+          }}
         />
       );
     },

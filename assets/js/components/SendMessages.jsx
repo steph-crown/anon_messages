@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 
-const SendMessages = ({ recipientEmail, recipientId }) => {
+const SendMessages = ({ recipientEmail, recipientId, handleSendMessage }) => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Message submitted:", message);
+    handleSendMessage(message, recipientId);
+  };
+
+  const handleMessageInputChange = (event) => {
+    setMessage(event.target.value);
   };
 
   return (
@@ -22,7 +26,10 @@ const SendMessages = ({ recipientEmail, recipientId }) => {
         a compliment, a question, or even a friendly dare.
       </p>
 
-      <textarea className="block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6 min-h-[6rem] "></textarea>
+      <textarea
+        className="block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6 min-h-[6rem] "
+        onChange={handleMessageInputChange}
+      ></textarea>
 
       <button className="rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80 mt-5">
         Send message
