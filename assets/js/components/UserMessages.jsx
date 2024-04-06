@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-const UserMessages = ({ userId }) => {
-  const [messages, setMessages] = useState([]);
+const UserMessages = ({ userId, messages }) => {
   const shareableLink = `http://localhost:3000/send_messages/${userId}`;
 
   return (
@@ -20,7 +19,7 @@ const UserMessages = ({ userId }) => {
               <p className="text-base text-black">{message.content}</p>
               <small className="block text-right mt-6">
                 {" "}
-                - Anonymous [{formatTime(message.createdAt)}]
+                - Anonymous [{formatTime(message.inserted_at)}]
               </small>
             </li>
           ))}

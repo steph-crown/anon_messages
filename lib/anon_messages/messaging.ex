@@ -37,6 +37,12 @@ defmodule AnonMessages.Messaging do
   """
   def get_message!(id), do: Repo.get!(Message, id)
 
+  # get messages by recipient_id in descending order of inserted_at
+  def get_messages_by_recipient_id(recipient_id) do
+    from(m in Message, where: m.recipient_id == ^recipient_id, order_by: [desc: m.inserted_at])
+    |> Repo.all()
+  end
+
   @doc """
   Creates a message.
 

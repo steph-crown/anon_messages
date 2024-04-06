@@ -6,6 +6,7 @@ const SendMessages = ({ recipientEmail, recipientId, handleSendMessage }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     handleSendMessage(message, recipientId);
+    setMessage("");
   };
 
   const handleMessageInputChange = (event) => {
@@ -29,6 +30,7 @@ const SendMessages = ({ recipientEmail, recipientId, handleSendMessage }) => {
       <textarea
         className="block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6 min-h-[6rem] "
         onChange={handleMessageInputChange}
+        value={message}
       ></textarea>
 
       <button className="rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80 mt-5">

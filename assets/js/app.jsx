@@ -30,10 +30,16 @@ import topbar from "../vendor/topbar";
 const Hooks = {
   UserMessages: {
     mounted() {
-      this.unmount = mount(
-        this.el.id,
-        <UserMessages userId={this.el?.dataset?.userid} />
-      );
+      let messages = [];
+
+      this.pushEvent("get_messages", {}, (response) => {
+        messages = response.messages;
+
+        this.unmount = mount(
+          this.el.id,
+          <UserMessages userId={this.el?.dataset?.userid} messages={messages} />
+        );
+      });
     },
 
     destroyed() {
